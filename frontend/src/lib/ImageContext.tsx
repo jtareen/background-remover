@@ -1,6 +1,11 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = 
+    (typeof process !== 'undefined' && process.env.REACT_APP_API_URL) || 
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 
+    "http://127.0.0.1:5000";
+
 // Define the type for the context value
 interface ImageContextType {
     image: File | null;
@@ -59,7 +64,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             setLoading(true);
-            const response = await axios.post("http://127.0.0.1:5000/remove-bg", formData, {
+            const response = await axios.post(`${API_BASE_URL}/remove-bg`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 responseType: "blob",
             });
@@ -129,7 +134,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
             formData.append("image", blob, "image.png");
             formData.append("color", imageBg);
 
-            const apiResponse = await axios.post("http://127.0.0.1:5000/add-bg-color", formData, {
+            const apiResponse = await axios.post(`${API_BASE_URL}/add-bg-color`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 responseType: "blob",
             });
