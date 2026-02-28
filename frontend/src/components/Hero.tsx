@@ -4,6 +4,17 @@ import { cn } from "@/lib/utils"
 import Dropzone from "./ui/dropzone"
 import ImageDivider from "./ImageDivider"
 
+export interface HeroProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+  className?: string;
+  gradient?: boolean;
+  blur?: boolean;
+  title?: React.ReactNode; 
+  subtitle?: React.ReactNode;
+  titleClassName?: string;
+  subtitleClassName?: string;
+  actionsClassName?: string;
+}
+
 const Hero = React.forwardRef<HTMLElement, HeroProps>(
   (
     {
@@ -14,7 +25,6 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
       subtitle,
       titleClassName,
       subtitleClassName,
-      actionsClassName,
       ...props
     },
     ref,
